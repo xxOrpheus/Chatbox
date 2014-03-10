@@ -8,6 +8,8 @@ define('CHAT_GUESTS_ALLOWED', true);
 define('CHAT_GUESTNAME_SALT', '!&%1$/\'":\[\'"');
 define('CHAT_VIEW_LIMIT', 25);
 define('CHAT_API_AUTHENTICATION', false);
+define('CHAT_MESSAGE_COOLDOWN', 3);
+
 $language = array();
 
 $language['resp_codes'] = array(
@@ -40,6 +42,9 @@ $language['resp_codes'] = array(
 	),
 	'MISSING_PARAMETERS' => array(
 		'EN' => 'Missing parameters. Please see documentation for this command'
+	),
+	'MESSAGE_COOLDOWN' => array(
+		'EN' => 'Please wait ' . CHAT_MESSAGE_COOLDOWN . ' seconds'
 	)
 );
 ?>
