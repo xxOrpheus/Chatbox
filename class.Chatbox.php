@@ -78,7 +78,8 @@ class Chatbox {
 
 	public function getMessages(array $options) {
 		if(isset($options['room'], $options['limit'])) {
-			if($rid = $this->roomExists($options)) {
+			if($this->getRoomName($options)) {
+				$rid = $options['room'];
 				$limit = $options['limit'];
 				if(!ctype_digit($limit)) {
 					return 'INVALID_LIMIT';
@@ -118,7 +119,7 @@ class Chatbox {
 			if(!ctype_alnum($room)) {
 				return 'INVALID_ROOM_NAME';
 			}
-			$roomId = $this->roomExists($options);
+			$roomName = $this->getRoomNAme($options);
 			if(!$roomId) {
 				return 'INVALID_ROOM';
 			}
@@ -130,16 +131,16 @@ class Chatbox {
 		}
 	}
 
-	public function roomExists(array $options) {
+	public function getRoomName(array $options) {
 		if(!isset($options['room'])) {
 			return 'MISSING_PARAMETERS';
 		}
 		$room = $options['room'];
-		$q = $this->pdo->prepare('SELECT COUNT(*) AS roomExists, id AS rid FROM chat_rooms WHERE id = ?');
+		$q = $this->pdo->prepare('SELECT COUNT(*) AS roomExists, name FROM chat_rooms WHERE id = ?');
 		$q->execute(array($room));
 		$r = $q->fetch(\PDO::FETCH_ASSOC);
 		if($r['roomExists'] > 0) {
-			return $r['rid'];
+			return $r['name'];
 		}
 		return false;
 	}
@@ -199,12 +200,12 @@ class Chatbox {
 		if(!$command) {
 			return 'BADLY_FORMED_COMMAND';
 		}
-		$permittedFunctions = array('getMessages', 'getUsername', 'roomExists', 'getError', 'login', 'register', 'sendMessage');
+		$permittedFunctions = array('getMessages', 'getUsername', 'getRoomName', 'getError', 'login', 'logout', 'register', 'sendMessage');
 		if(!in_array($command['command'], $permittedFunctions)) {
 			return 'INVALID_COMMAND';
 		} else {
 			$function = $command['command'];
-			$result = array('result' => $this->$function($command['options']));
+			$result = array('command' => $function, 'result' => $this->$function($command['options']));
 			return json_encode($result);
 		}
 	}
