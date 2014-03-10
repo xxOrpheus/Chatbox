@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2014 at 11:17 PM
+-- Generation Time: Mar 09, 2014 at 11:40 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.5.8
 
@@ -65,6 +65,20 @@ CREATE TABLE IF NOT EXISTS `chat_rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `chat_sessions` (
+  `ip` varchar(255) NOT NULL,
+  `lastMessage` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
