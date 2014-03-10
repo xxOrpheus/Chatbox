@@ -7,10 +7,10 @@ define('CHAT_MESSAGE_MAX_LENGTH', 256);
 define('CHAT_GUESTS_ALLOWED', true);
 define('CHAT_GUESTNAME_SALT', '!&%1$/\'":\[\'"');
 define('CHAT_VIEW_LIMIT', 25);
-define('CHAT_API_AUTHENTICATION', true);
+define('CHAT_API_AUTHENTICATION', false);
 $language = array();
 
-$language['error_codes'] = array(
+$language['resp_codes'] = array(
 	'MSG_TOO_LONG' => array(
 		'EN' => 'That message is too long'
 	),
