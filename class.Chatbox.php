@@ -169,7 +169,7 @@ class Chatbox {
 		return false;
 	}
 
-	public function getError(array $options) {
+	public function getResponse(array $options) {
 		if(!isset($options['error'], $options['lang'])) {
 			return 'null';
 		}
@@ -177,8 +177,8 @@ class Chatbox {
 		$lang = $options['lang'];
 
 		global $language;
-		if(isset($language['error_codes'][$error][$lang])) {
-			return $language['error_codes'][$error][$lang];
+		if(isset($language['resp_codes'][$error][$lang])) {
+			return $language['resp_codes'][$error][$lang];
 		}
 		return 'null';
 	}
