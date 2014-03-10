@@ -6,7 +6,7 @@ session_start();
 $root = dirname(__FILE__);
 define('CHATBOX_ROOT', $root);
 
-require CHATBOX_ROOT . '/config.chatbox.php';
+require CHATBOX_ROOT . '/config.Chatbox.php';
 
 class Chatbox {
 	protected $pdo = null;
