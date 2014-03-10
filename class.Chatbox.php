@@ -123,8 +123,19 @@ class Chatbox {
 			if(!$roomName) {
 				return 'INVALID_ROOM';
 			}
+			if(CHAT_MESSAGE_COOLDOWN > 0) {
+				$q = $this->pdo->prepare('SELECT lastMessage FROM chat_sessions WHERE ip = ?');
+				$q->execute(array($_SERVER['REMOTE_ADDR']));
+				$r = $q->fetch(\PDO::FETCH_ASSOC);
+				$d = time() - $r['lastMessage'];
+				if($d < CHAT_MESSAGE_COOLDOWN) {
+					return 'MESSAGE_COOLDOWN';
+				}
+			}
 			$q = $this->pdo->prepare('INSERT INTO chat_messages(message, nick, uid, room, time) VALUES(?, ?, ?, ?, ?)');
-			$q->execute(array($message, $author, $uid, $roomId, time()));
+			$q->execute(array($message, $author, $uid, $room, time()));
+			$q = $this->pdo->prepare('INSERT INTO chat_sessions(ip, lastMessage) VALUES(?, ?) ON DUPLICATE KEY UPDATE lastMessage = UNIX_TIMESTAMP(NOW())');
+			$q->execute(array($_SERVER['REMOTE_ADDR'], time()));
 			return 'MESSAGE_OK';
 		} else {
 			return 'MISSING_PARAMETERS';
