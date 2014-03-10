@@ -228,3 +228,4 @@ class Chatbox {
 		return false;
 	}
 }
+ 
