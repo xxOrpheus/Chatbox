@@ -120,7 +120,7 @@ class Chatbox {
 				return 'INVALID_ROOM_NAME';
 			}
 			$roomName = $this->getRoomNAme($options);
-			if(!$roomId) {
+			if(!$roomName) {
 				return 'INVALID_ROOM';
 			}
 			$q = $this->pdo->prepare('INSERT INTO chat_messages(message, nick, uid, room, time) VALUES(?, ?, ?, ?, ?)');
